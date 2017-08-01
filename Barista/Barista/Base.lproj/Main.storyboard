@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Barista" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YKq-Pf-Pl2">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" id="RqZ-c1-abt">
+                                        <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="NUK-s1-unv">
+                                            <rect key="frame" x="20" y="6.5" width="51" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="soundSwitchToggle:" destination="BYZ-38-t0r" eventType="valueChanged" id="gBK-x5-onu"/>
+                                            </connections>
+                                        </switch>
+                                    </barButtonItem>
+                                    <barButtonItem id="Hb3-FG-deX"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ab2-9k-AQC"/>
+                                    <barButtonItem systemItem="refresh" id="sZ8-ZD-wv8">
+                                        <connections>
+                                            <action selector="refresh" destination="BYZ-38-t0r" id="uDl-5C-3bY"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Wjn-PF-SBA"/>
+                                    <barButtonItem title="Admin" id="utL-s0-R82">
+                                        <connections>
+                                            <segue destination="sKO-hj-hVG" kind="show" id="9lD-x7-Aas"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ZHa-UK-9ug"/>
+                                    <barButtonItem style="plain" id="bgU-9c-824">
+                                        <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="rlW-R7-3eF">
+                                            <rect key="frame" x="531" y="6.5" width="51" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="toggleOpen:" destination="BYZ-38-t0r" eventType="valueChanged" id="UI1-kL-8nX"/>
+                                            </connections>
+                                        </switch>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76k-bK-YCc">
+                                <rect key="frame" x="459" y="564" width="65" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="E8v-AD-bet"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="101" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oJp-ac-aPi">
+                                <rect key="frame" x="0.0" y="20" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="kmM-rw-Xg4"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="kH1-0x-8hy"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sounds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mo9-NN-NoS">
+                                <rect key="frame" x="85" y="567" width="70" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="hlV-8A-TbD"/>
+                                    <constraint firstAttribute="height" constant="21" id="wd9-Wj-tR7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="oJp-ac-aPi" firstAttribute="leading" secondItem="YKq-Pf-Pl2" secondAttribute="leading" id="EXt-yb-nVF"/>
+                            <constraint firstItem="oJp-ac-aPi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="N2a-wE-Jbm"/>
+                            <constraint firstItem="YKq-Pf-Pl2" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="c3r-Xo-s7w"/>
+                            <constraint firstItem="YKq-Pf-Pl2" firstAttribute="top" secondItem="oJp-ac-aPi" secondAttribute="bottom" id="d4L-H6-9sv"/>
+                            <constraint firstItem="76k-bK-YCc" firstAttribute="top" secondItem="oJp-ac-aPi" secondAttribute="bottom" constant="8" symbolic="YES" id="eDw-ye-Ebp"/>
+                            <constraint firstItem="Mo9-NN-NoS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="65" id="gtf-1i-Pvt"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Mo9-NN-NoS" secondAttribute="bottom" constant="12" id="hy0-Na-vb2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="76k-bK-YCc" secondAttribute="trailing" constant="56" id="jdA-ak-PhP"/>
+                            <constraint firstAttribute="trailing" secondItem="oJp-ac-aPi" secondAttribute="trailing" id="m2G-Xt-EGC"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="76k-bK-YCc" secondAttribute="bottom" constant="8" symbolic="YES" id="oAR-9N-rB0"/>
+                            <constraint firstItem="oJp-ac-aPi" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" id="rsC-44-dIi"/>
+                            <constraint firstItem="oJp-ac-aPi" firstAttribute="trailing" secondItem="YKq-Pf-Pl2" secondAttribute="trailing" id="wLk-HG-mRG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="refreshButton" destination="sZ8-ZD-wv8" id="jbT-nO-Pq2"/>
+                        <outlet property="soundSwitch" destination="NUK-s1-unv" id="SiE-Dw-MIZ"/>
+                        <outlet property="statusLabel" destination="76k-bK-YCc" id="eRW-SY-Acx"/>
+                        <outlet property="statusSwitch" destination="rlW-R7-3eF" id="Iji-Ic-dnE"/>
+                        <outlet property="table" destination="oJp-ac-aPi" id="MDx-9t-MLR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="272" y="393"/>
+        </scene>
+        <!--AdminStoryboard-->
+        <scene sceneID="gcc-1Y-6jP">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AdminStoryboard" id="sKO-hj-hVG" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oXF-GH-MHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="272.5" y="902"/>
+        </scene>
+    </scenes>
+</document>

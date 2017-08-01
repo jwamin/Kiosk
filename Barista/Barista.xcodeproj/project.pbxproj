@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7F31246C7A0ED0B7812026A5 /* Pods_Barista.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61BAC99AACD0DFB0BDDD7AF /* Pods_Barista.framework */; };
+		CA0A02CD1C46608A006478D4 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0A02CB1C46608A006478D4 /* MyTableViewCell.swift */; };
+		CA0A02CE1C46608A006478D4 /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA0A02CC1C46608A006478D4 /* MyTableViewCell.xib */; };
+		CA2DAC6D1C2AC50F00E0F741 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2DAC6C1C2AC50F00E0F741 /* AppDelegate.swift */; };
+		CA2DAC6F1C2AC50F00E0F741 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2DAC6E1C2AC50F00E0F741 /* ViewController.swift */; };
+		CA2DAC741C2AC50F00E0F741 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA2DAC731C2AC50F00E0F741 /* Assets.xcassets */; };
+		CA2DAC771C2AC50F00E0F741 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA2DAC751C2AC50F00E0F741 /* LaunchScreen.storyboard */; };
+		CAB7F2871C5BB25A00CEB25C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAB7F2861C5BB25A00CEB25C /* Main.storyboard */; };
+		CAB7F2891C5BBCA500CEB25C /* detailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7F2881C5BBCA500CEB25C /* detailViewController.swift */; };
+		CAB7F28B1C5BC10000CEB25C /* backendAdmin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7F28A1C5BC10000CEB25C /* backendAdmin.swift */; };
+		CAB7F28D1C5BCD4600CEB25C /* MasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB7F28C1C5BCD4600CEB25C /* MasterTableViewController.swift */; };
+		CAE2DFEA1C5B941E0074FDC8 /* AdminStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAE2DFE91C5B941E0074FDC8 /* AdminStoryboard.storyboard */; };
+		CAE2DFEC1C5BA3A50074FDC8 /* BackendAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE2DFEB1C5BA3A50074FDC8 /* BackendAdminViewController.swift */; };
+		CAEE82741C4E5F8900017FCA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAEE82731C4E5F8900017FCA /* AudioToolbox.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		67467325F0570CF7FBAAF8E7 /* Pods-Barista.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Barista.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Barista/Pods-Barista.debug.xcconfig"; sourceTree = "<group>"; };
+		7A3C4733B82A0CD6EEAA3535 /* Pods-Barista.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Barista.release.xcconfig"; path = "Pods/Target Support Files/Pods-Barista/Pods-Barista.release.xcconfig"; sourceTree = "<group>"; };
+		C61BAC99AACD0DFB0BDDD7AF /* Pods_Barista.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Barista.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA0A02CB1C46608A006478D4 /* MyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
+		CA0A02CC1C46608A006478D4 /* MyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyTableViewCell.xib; sourceTree = "<group>"; };
+		CA2DAC691C2AC50F00E0F741 /* Barista.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Barista.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA2DAC6C1C2AC50F00E0F741 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CA2DAC6E1C2AC50F00E0F741 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CA2DAC731C2AC50F00E0F741 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CA2DAC761C2AC50F00E0F741 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CA2DAC781C2AC50F00E0F741 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA2DAC7E1C2AC5C500E0F741 /* Barista-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Barista-Bridging-Header.h"; sourceTree = "<group>"; };
+		CAB7F2861C5BB25A00CEB25C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CAB7F2881C5BBCA500CEB25C /* detailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detailViewController.swift; sourceTree = "<group>"; };
+		CAB7F28A1C5BC10000CEB25C /* backendAdmin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = backendAdmin.swift; sourceTree = "<group>"; };
+		CAB7F28C1C5BCD4600CEB25C /* MasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterTableViewController.swift; sourceTree = "<group>"; };
+		CAE2DFE91C5B941E0074FDC8 /* AdminStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdminStoryboard.storyboard; sourceTree = "<group>"; };
+		CAE2DFEB1C5BA3A50074FDC8 /* BackendAdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendAdminViewController.swift; sourceTree = "<group>"; };
+		CAEE82731C4E5F8900017FCA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CA2DAC661C2AC50F00E0F741 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAEE82741C4E5F8900017FCA /* AudioToolbox.framework in Frameworks */,
+				7F31246C7A0ED0B7812026A5 /* Pods_Barista.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B2869CCDD311CF82A92C3BF2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CAEE82731C4E5F8900017FCA /* AudioToolbox.framework */,
+				C61BAC99AACD0DFB0BDDD7AF /* Pods_Barista.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CA2DAC601C2AC50F00E0F741 = {
+			isa = PBXGroup;
+			children = (
+				CA2DAC6B1C2AC50F00E0F741 /* Barista */,
+				CA2DAC6A1C2AC50F00E0F741 /* Products */,
+				CFA145D741350BBE2924170A /* Pods */,
+				B2869CCDD311CF82A92C3BF2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CA2DAC6A1C2AC50F00E0F741 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CA2DAC691C2AC50F00E0F741 /* Barista.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CA2DAC6B1C2AC50F00E0F741 /* Barista */ = {
+			isa = PBXGroup;
+			children = (
+				CAB7F2861C5BB25A00CEB25C /* Main.storyboard */,
+				CA2DAC6C1C2AC50F00E0F741 /* AppDelegate.swift */,
+				CA2DAC6E1C2AC50F00E0F741 /* ViewController.swift */,
+				CAE2DFE91C5B941E0074FDC8 /* AdminStoryboard.storyboard */,
+				CAB7F2881C5BBCA500CEB25C /* detailViewController.swift */,
+				CAE2DFEB1C5BA3A50074FDC8 /* BackendAdminViewController.swift */,
+				CAB7F28A1C5BC10000CEB25C /* backendAdmin.swift */,
+				CAB7F28C1C5BCD4600CEB25C /* MasterTableViewController.swift */,
+				CA2DAC731C2AC50F00E0F741 /* Assets.xcassets */,
+				CA2DAC751C2AC50F00E0F741 /* LaunchScreen.storyboard */,
+				CA2DAC781C2AC50F00E0F741 /* Info.plist */,
+				CA2DAC7E1C2AC5C500E0F741 /* Barista-Bridging-Header.h */,
+				CA0A02CB1C46608A006478D4 /* MyTableViewCell.swift */,
+				CA0A02CC1C46608A006478D4 /* MyTableViewCell.xib */,
+			);
+			path = Barista;
+			sourceTree = "<group>";
+		};
+		CFA145D741350BBE2924170A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				67467325F0570CF7FBAAF8E7 /* Pods-Barista.debug.xcconfig */,
+				7A3C4733B82A0CD6EEAA3535 /* Pods-Barista.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CA2DAC681C2AC50F00E0F741 /* Barista */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA2DAC7B1C2AC50F00E0F741 /* Build configuration list for PBXNativeTarget "Barista" */;
+			buildPhases = (
+				C0ADB4D51E71417925D26C18 /* Check Pods Manifest.lock */,
+				CA2DAC651C2AC50F00E0F741 /* Sources */,
+				CA2DAC661C2AC50F00E0F741 /* Frameworks */,
+				CA2DAC671C2AC50F00E0F741 /* Resources */,
+				CBF14408C26F6A9F36F8892A /* Embed Pods Frameworks */,
+				7FEC7FD94704FD3C976EF2E2 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Barista;
+			productName = Barista;
+			productReference = CA2DAC691C2AC50F00E0F741 /* Barista.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CA2DAC611C2AC50F00E0F741 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = " jossy";
+				TargetAttributes = {
+					CA2DAC681C2AC50F00E0F741 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = WCX6WW7JPG;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = CA2DAC641C2AC50F00E0F741 /* Build configuration list for PBXProject "Barista" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CA2DAC601C2AC50F00E0F741;
+			productRefGroup = CA2DAC6A1C2AC50F00E0F741 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CA2DAC681C2AC50F00E0F741 /* Barista */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CA2DAC671C2AC50F00E0F741 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA2DAC771C2AC50F00E0F741 /* LaunchScreen.storyboard in Resources */,
+				CAB7F2871C5BB25A00CEB25C /* Main.storyboard in Resources */,
+				CA0A02CE1C46608A006478D4 /* MyTableViewCell.xib in Resources */,
+				CA2DAC741C2AC50F00E0F741 /* Assets.xcassets in Resources */,
+				CAE2DFEA1C5B941E0074FDC8 /* AdminStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7FEC7FD94704FD3C976EF2E2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Barista/Pods-Barista-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0ADB4D51E71417925D26C18 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CBF14408C26F6A9F36F8892A /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Barista/Pods-Barista-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CA2DAC651C2AC50F00E0F741 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA2DAC6F1C2AC50F00E0F741 /* ViewController.swift in Sources */,
+				CA2DAC6D1C2AC50F00E0F741 /* AppDelegate.swift in Sources */,
+				CAB7F28B1C5BC10000CEB25C /* backendAdmin.swift in Sources */,
+				CAE2DFEC1C5BA3A50074FDC8 /* BackendAdminViewController.swift in Sources */,
+				CAB7F2891C5BBCA500CEB25C /* detailViewController.swift in Sources */,
+				CA0A02CD1C46608A006478D4 /* MyTableViewCell.swift in Sources */,
+				CAB7F28D1C5BCD4600CEB25C /* MasterTableViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CA2DAC751C2AC50F00E0F741 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CA2DAC761C2AC50F00E0F741 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CA2DAC791C2AC50F00E0F741 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		CA2DAC7A1C2AC50F00E0F741 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CA2DAC7C1C2AC50F00E0F741 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67467325F0570CF7FBAAF8E7 /* Pods-Barista.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = Barista/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-D DEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = jossy.Barista;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Barista/Barista-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CA2DAC7D1C2AC50F00E0F741 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A3C4733B82A0CD6EEAA3535 /* Pods-Barista.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = Barista/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-D RELEASE";
+				PRODUCT_BUNDLE_IDENTIFIER = jossy.Barista;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Barista/Barista-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CA2DAC641C2AC50F00E0F741 /* Build configuration list for PBXProject "Barista" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA2DAC791C2AC50F00E0F741 /* Debug */,
+				CA2DAC7A1C2AC50F00E0F741 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA2DAC7B1C2AC50F00E0F741 /* Build configuration list for PBXNativeTarget "Barista" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA2DAC7C1C2AC50F00E0F741 /* Debug */,
+				CA2DAC7D1C2AC50F00E0F741 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CA2DAC611C2AC50F00E0F741 /* Project object */;
+}
