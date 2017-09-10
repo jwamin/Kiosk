@@ -10,8 +10,8 @@ import Foundation
 
 //Method to look for set key in NSUserDefaults
 
-func keyAlreadyExist(test:String) -> Bool {
-    if (NSUserDefaults.standardUserDefaults().objectForKey(test) != nil) {
+func keyAlreadyExist(_ test:String) -> Bool {
+    if (UserDefaults.standard.object(forKey: test) != nil) {
         return true
     }else {
         return false
@@ -19,11 +19,11 @@ func keyAlreadyExist(test:String) -> Bool {
 }
 
 //Get and return NSUserDefaults Value or nil
-func getExistingValue(test:String) -> AnyObject? {
-    if let gotValue = NSUserDefaults.standardUserDefaults().objectForKey(test){
-        return gotValue
+func getExistingValue(_ test:String) -> AnyObject? {
+    if let gotValue = UserDefaults.standard.object(forKey: test){
+        return gotValue as AnyObject
     }
     else {
-        return false
+        return false as AnyObject
     }
 }

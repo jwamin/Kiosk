@@ -26,15 +26,15 @@ class closed: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resigned", name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "becameActive", name: UIApplicationDidBecomeActiveNotification, object: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(closed.resigned), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(closed.becameActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         print("closed screen appeared")
         subscribeToStatus()
         textArea.text = ""
         if let gotText = text{
             textArea.text = gotText
-            textArea.textAlignment = .Center
+            textArea.textAlignment = .center
         }
         
     }
@@ -49,7 +49,7 @@ class closed: UIViewController {
         subscribeToStatus()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         print("closed screen disappeared")
     }
     
@@ -59,19 +59,19 @@ class closed: UIViewController {
     
     func subscribeToStatus()->Void{
         StatusSubscriber = Firebase(url: appURL)
-        StatusSubscriber.childByAppendingPath("config").observeEventType(FEventType.Value, withBlock: { snapshot in
+        StatusSubscriber.child(byAppendingPath: "config").observe(FEventType.value, with: { snapshot in
             
-            if snapshot.value is NSNull {
+            if snapshot?.value is NSNull {
                 print("error")
             } else {
-                if let status = snapshot.value.objectForKey("status"){
+                if let status = (snapshot?.value as AnyObject).object(forKey: "status"){
                     let stat = status as! String
                     if (stat=="open"){
                         
-                        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
-                        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidBecomeActiveNotification, object: nil)
+                        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+                        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
                         
-                        self.dismissViewControllerAnimated(true, completion: {
+                        self.dismiss(animated: true, completion: {
                         
                             
                         

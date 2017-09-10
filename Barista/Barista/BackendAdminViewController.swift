@@ -13,7 +13,7 @@ class BackendAdminViewController: UIViewController, UITableViewDelegate, adminMo
     @IBOutlet var drinks: UITableView!
     
     let model:adminModel! = adminModel()
-    var selectedIndex:NSIndexPath? = nil
+    var selectedIndex:IndexPath? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,10 +31,10 @@ class BackendAdminViewController: UIViewController, UITableViewDelegate, adminMo
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath)
         selectedIndex = indexPath
-        let vc = UIStoryboard(name: "AdminStoryboard", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("detail") as! detailViewController
+        let vc = UIStoryboard(name: "AdminStoryboard", bundle: Bundle.main).instantiateViewController(withIdentifier: "detail") as! detailViewController
         
         vc.delegate = self
         vc.thisDrink = model.drinksSettings[(selectedIndex?.row)!]
@@ -45,9 +45,9 @@ class BackendAdminViewController: UIViewController, UITableViewDelegate, adminMo
     
 
     
-    @IBAction func newDrink(sender: AnyObject) {
+    @IBAction func newDrink(_ sender: AnyObject) {
     
-        let vc = UIStoryboard(name: "AdminStoryboard", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("detail") as! detailViewController
+        let vc = UIStoryboard(name: "AdminStoryboard", bundle: Bundle.main).instantiateViewController(withIdentifier: "detail") as! detailViewController
         
         vc.delegate = self
         vc.thisDrink = [:]
@@ -56,13 +56,13 @@ class BackendAdminViewController: UIViewController, UITableViewDelegate, adminMo
         splitViewController?.showDetailViewController(vc, sender: nil)
         
     }
-    @IBAction func refresh(sender: AnyObject) {
+    @IBAction func refresh(_ sender: AnyObject) {
         model.getDrinksSettings()
     }
     
-    @IBAction func donePressed(sender: AnyObject) {
+    @IBAction func donePressed(_ sender: AnyObject) {
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         
     }
     
@@ -70,20 +70,20 @@ class BackendAdminViewController: UIViewController, UITableViewDelegate, adminMo
         print("master view deinitialised")
     }
     
-    func drinkSubmit(drink:Dictionary<String,AnyObject>,sender:detailViewController){
+    func drinkSubmit(_ drink:Dictionary<String,AnyObject>,sender:detailViewController){
         let updateBase = Firebase(url: appURL)
-        updateBase.authUser(authEmail, password: authPasswd) {
+        updateBase?.authUser(authEmail, password: authPasswd) {
             error, authData in
             if error != nil {
-                let alery = UIAlertController(title: "Error", message: "There was a problem posting your drink", preferredStyle: UIAlertControllerStyle.Alert)
-                let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                let alery = UIAlertController(title: "Error", message: "There was a problem posting your drink", preferredStyle: UIAlertControllerStyle.alert)
+                let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
                 alery.addAction(action)
-                self.presentViewController(alery, animated: true, completion: nil)
+                self.present(alery, animated: true, completion: nil)
             } else {
-                let postRef = updateBase.childByAppendingPath("config/drinks")
-                let post = postRef.childByAutoId()
-                post.setValue(drink)
-                let vc = UIStoryboard(name: "AdminStoryboard", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("placeholder")
+                let postRef = updateBase?.child(byAppendingPath: "config/drinks")
+                let post = postRef?.childByAutoId()
+                post?.setValue(drink)
+                let vc = UIStoryboard(name: "AdminStoryboard", bundle: Bundle.main).instantiateViewController(withIdentifier: "placeholder")
                 
                 
                 self.model.getDrinksSettings()
@@ -105,22 +105,22 @@ class BackendAdminViewController: UIViewController, UITableViewDelegate, adminMo
     
     //Reorder using table view controller, index stored as k:v on drink
     
-    func drinkDelete(index:String){
+    func drinkDelete(_ index:String){
             let updateBase = Firebase(url: appURL)
-            updateBase.authUser(authEmail, password: authPasswd) {
+            updateBase?.authUser(authEmail, password: authPasswd) {
                 error, authData in
                 if error != nil {
-                    let alery = UIAlertController(title: "Error", message: "There was a problem removing your drink", preferredStyle: UIAlertControllerStyle.Alert)
-                    let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                    let alery = UIAlertController(title: "Error", message: "There was a problem removing your drink", preferredStyle: UIAlertControllerStyle.alert)
+                    let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
                     alery.addAction(action)
-                    self.presentViewController(alery, animated: true, completion: nil)
+                    self.present(alery, animated: true, completion: nil)
                     self.model.getDrinksSettings()
                 } else {
-                    let postRef = updateBase.childByAppendingPath("config/drinks/\(index)")
-                    postRef.removeValueWithCompletionBlock({
+                    let postRef = updateBase?.child(byAppendingPath: "config/drinks/\(index)")
+                    postRef?.removeValue(completionBlock: {
                         (err,fb) in
                       
-                        let vc = UIStoryboard(name: "AdminStoryboard", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("placeholder")
+                        let vc = UIStoryboard(name: "AdminStoryboard", bundle: Bundle.main).instantiateViewController(withIdentifier: "placeholder")
                         
                         
                         self.model.getDrinksSettings()
@@ -136,20 +136,20 @@ class BackendAdminViewController: UIViewController, UITableViewDelegate, adminMo
     
     func deleteAllDrinks(){
         let updateBase = Firebase(url: appURL)
-        updateBase.authUser(authEmail, password: authPasswd) {
+        updateBase?.authUser(authEmail, password: authPasswd) {
             error, authData in
             if error != nil {
-                let alery = UIAlertController(title: "Error", message: "There was a problem clearing drinks", preferredStyle: UIAlertControllerStyle.Alert)
-                let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                let alery = UIAlertController(title: "Error", message: "There was a problem clearing drinks", preferredStyle: UIAlertControllerStyle.alert)
+                let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
                 alery.addAction(action)
-                self.presentViewController(alery, animated: true, completion: nil)
+                self.present(alery, animated: true, completion: nil)
                 self.model.getDrinksSettings()
             } else {
-                let postRef = updateBase.childByAppendingPath("config/drinks")
-                postRef.removeValueWithCompletionBlock({
+                let postRef = updateBase?.child(byAppendingPath: "config/drinks")
+                postRef?.removeValue(completionBlock: {
                     (err,fb) in
                     
-                    let vc = UIStoryboard(name: "AdminStoryboard", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("placeholder")
+                    let vc = UIStoryboard(name: "AdminStoryboard", bundle: Bundle.main).instantiateViewController(withIdentifier: "placeholder")
                     
                     
                     self.model.getDrinksSettings()
@@ -162,7 +162,7 @@ class BackendAdminViewController: UIViewController, UITableViewDelegate, adminMo
         }
     }
     
-    func requestDelete(selectedIndex: Int) {
+    func requestDelete(_ selectedIndex: Int) {
         let backendKey = model.drinksSettings[selectedIndex]["uniqueKey"] as! String
         print(backendKey)
         model.delegate?.drinkDelete(backendKey)
@@ -188,13 +188,13 @@ class BackendAdminViewController: UIViewController, UITableViewDelegate, adminMo
 }
 
 protocol drinkDetailDelegate {
-    func drinkSubmit(drink:Dictionary<String,AnyObject>,sender:detailViewController)
-    func requestDelete(selectedIndex:Int)
+    func drinkSubmit(_ drink:Dictionary<String,AnyObject>,sender:detailViewController)
+    func requestDelete(_ selectedIndex:Int)
 }
 
 protocol adminModelDelegate {
     func successfulRequest()
-    func drinkDelete(index:String)
+    func drinkDelete(_ index:String)
 }
 
 class adminModel : NSObject, UITableViewDataSource{
@@ -213,48 +213,48 @@ class adminModel : NSObject, UITableViewDataSource{
             print("model deinitialised")
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("drinksCell")! as UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "drinksCell")! as UITableViewCell
         print(drinksSettings[indexPath.row])
         cell.textLabel?.text = drinksSettings[indexPath.row]["name"] as? String
         
         return cell
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if(editingStyle == .Delete){
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if(editingStyle == .delete){
             let backendKey = drinksSettings[indexPath.row]["uniqueKey"] as! String
             print(backendKey)
-            drinksSettings.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            drinksSettings.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             delegate?.drinkDelete(backendKey)
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return drinksSettings.count
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func getDrinksSettings(){
-        drinksConfig = Firebase(url: appURL).childByAppendingPath("config")
-        drinksConfig.observeSingleEventOfType(FEventType.Value, withBlock: { snapshot in
+        drinksConfig = Firebase(url: appURL).child(byAppendingPath: "config")
+        drinksConfig.observeSingleEvent(of: FEventType.value, with: { snapshot in
             
-            if snapshot.value is NSNull {
+            if snapshot?.value is NSNull {
                 print("error")
             } else {
                 print("called")
                 
                 var drinks:[NSDictionary] = [];
                 //var drinkIndex = 0;
-                if let drinkDictionary = snapshot.value.objectForKey("drinks") as? Dictionary<String,Dictionary<String,AnyObject>>{
+                if let drinkDictionary = (snapshot?.value as AnyObject).object(forKey: "drinks") as? Dictionary<String,Dictionary<String,AnyObject>>{
                     for (key,value) in drinkDictionary{
                         var modvlaue = value
-                        modvlaue["uniqueKey"] = key
-                        drinks.append(modvlaue)
+                        modvlaue["uniqueKey"] = key as AnyObject
+                        drinks.append(modvlaue as NSDictionary)
                     }
 
                 } else {
@@ -272,7 +272,7 @@ class adminModel : NSObject, UITableViewDataSource{
         })
     }
     
-    @IBAction func commitSubmit(segue:UIStoryboardSegue) {
+    @IBAction func commitSubmit(_ segue:UIStoryboardSegue) {
         print("commit submit")
        
         

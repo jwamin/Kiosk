@@ -10,9 +10,9 @@ import UIKit
 
 @objc protocol tableCellControlDelegate{
     
-    func cellButtonPressed(cell: MyTableViewCell)
-    optional func cellCompletedPressed(cell: MyTableViewCell)
-    optional func removeCell(cell: MyTableViewCell)
+    func cellButtonPressed(_ cell: MyTableViewCell)
+    @objc optional func cellCompletedPressed(_ cell: MyTableViewCell)
+    @objc optional func removeCell(_ cell: MyTableViewCell)
 }
 
 
@@ -54,10 +54,10 @@ class MyTableViewCell: UITableViewCell {
 
     }
     
-    @IBAction func start(sender: AnyObject) {
+    @IBAction func start(_ sender: AnyObject) {
         print(button.titleLabel?.text)
         animateCell();
-        button.setTitle("Updating...", forState: .Normal)
+        button.setTitle("Updating...", for: UIControlState())
         print(button.titleLabel?.text)
         delegate?.cellButtonPressed(self)
         
@@ -66,36 +66,36 @@ class MyTableViewCell: UITableViewCell {
     func statusRearrange(){
         print("rearranging on cell")
         self.animating.startAnimating()
-        self.animating.hidden = false
-        self.button.hidden = true
+        self.animating.isHidden = false
+        self.button.isHidden = true
         self.animating.layer.opacity = 1
-        self.doneButton.hidden = false;
+        self.doneButton.isHidden = false;
         self.doneButton.layer.opacity = 1
-        self.doneButton.addTarget(self, action: "donebuttonpressed:", forControlEvents: .TouchUpInside)
+        self.doneButton.addTarget(self, action: #selector(MyTableViewCell.donebuttonpressed(_:)), for: .touchUpInside)
     }
     
     func animateCell(){
-        self.doneButton.addTarget(self, action: "donebuttonpressed:", forControlEvents: .TouchUpInside)
+        self.doneButton.addTarget(self, action: #selector(MyTableViewCell.donebuttonpressed(_:)), for: .touchUpInside)
     }
     
-    func donebuttonpressed(thingy:AnyObject){
-        doneButton.setTitle("Updating...", forState: .Normal)
+    func donebuttonpressed(_ thingy:AnyObject){
+        doneButton.setTitle("Updating...", for: UIControlState())
         self.delegate?.cellCompletedPressed!(self)
     }
     
     func started(){
         print(button.titleLabel?.text)
         animating.startAnimating()
-        doneButton.hidden = false
+        doneButton.isHidden = false
         button.layer.opacity = 0
         animating.layer.opacity = 1
         doneButton.layer.opacity = 1
         print(button.titleLabel?.text)
     }
     
-    func animateStart(backwards:Bool?){
+    func animateStart(_ backwards:Bool?){
         animating.startAnimating()
-        doneButton.hidden = false
+        doneButton.isHidden = false
         // works, symiltaneous animation
         /*
         UIView.animateWithDuration(1.0, animations: {
@@ -112,21 +112,21 @@ class MyTableViewCell: UITableViewCell {
         
         let animations = {
             
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5, animations: {
                 self.button.layer.opacity = 0
                 self.button.layer.position.x = (self.button.layer.position.x - 20)
             })
             
             
-            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
                 self.animating.layer.position.x = self.animating.layer.position.x + 20
             })
             
-            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
                 self.animating.layer.opacity = 1
             })
             
-            UIView.addKeyframeWithRelativeStartTime(0.8, relativeDuration: 0.2, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.2, animations: {
                 self.doneButton.layer.opacity = 1
                 self.doneButton.layer.position.x = (self.button.layer.position.x - 20)
             })
@@ -135,26 +135,26 @@ class MyTableViewCell: UITableViewCell {
         
         //var options:UIViewKeyframeAnimationOptions = .Autoreverse
         
-        UIView.animateKeyframesWithDuration(1.0, delay: 0.0, options: UIViewKeyframeAnimationOptions.BeginFromCurrentState, animations:animations, completion: {mybool in
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: UIViewKeyframeAnimationOptions.beginFromCurrentState, animations:animations, completion: {mybool in
                 print(mybool)
         })
 
     }
     
     func animateEnd(){
-        UIView.animateKeyframesWithDuration(1.0, delay: 0.0, options: UIViewKeyframeAnimationOptions.BeginFromCurrentState, animations:{
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: UIViewKeyframeAnimationOptions.beginFromCurrentState, animations:{
             
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.3, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: {
                 self.doneButton.layer.opacity = 0
                 self.doneButton.layer.position.x = (self.button.layer.position.x + 20)
             })
             
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5, animations: {
                 self.crazylabel.layer.position.x = self.crazylabel.layer.position.x + 20
                 self.crazylabel.layer.opacity = 0
             })
             
-            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
                 self.animating.layer.opacity = 0
             })
             
@@ -162,16 +162,16 @@ class MyTableViewCell: UITableViewCell {
                 
                 self.crazylabel.text = "Awesome!"
                 
-                UIView.animateKeyframesWithDuration(0.2, delay: 0.0, options: UIViewKeyframeAnimationOptions.BeginFromCurrentState, animations: {
+                UIView.animateKeyframes(withDuration: 0.2, delay: 0.0, options: UIViewKeyframeAnimationOptions.beginFromCurrentState, animations: {
                     
-                    UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
                         self.crazylabel.layer.position.x = self.crazylabel.layer.position.x - 20
                         self.crazylabel.layer.opacity = 1
                     })
                     
                     }, completion: {mybool in
                         self.animating.stopAnimating()
-                        self.animating.hidden = true
+                        self.animating.isHidden = true
                         self.delegate?.removeCell?(self)
                 })
                 
@@ -180,15 +180,15 @@ class MyTableViewCell: UITableViewCell {
 
     }
     
-    override func animationDidStart(anim: CAAnimation) {
+    func animationDidStart(_ anim: CAAnimation) {
         print("animtation started ",anim)
     }
     
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         print("animtation stopped ",anim)
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

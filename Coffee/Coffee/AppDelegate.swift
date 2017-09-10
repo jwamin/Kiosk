@@ -16,17 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
    
-        if let resetSettings = NSUserDefaults.standardUserDefaults().objectForKey(resetSettingsKey) as? Bool{
+        if let resetSettings = UserDefaults.standard.object(forKey: resetSettingsKey) as? Bool{
             if (resetSettings == true){
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(kUsernameKey)
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(favourite)
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(orderIDk)
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(halfShotEnabledKey)
-                NSUserDefaults.standardUserDefaults().setBool(false, forKey: resetSettingsKey)
-                NSUserDefaults.standardUserDefaults().synchronize()
+                UserDefaults.standard.removeObject(forKey: kUsernameKey)
+                UserDefaults.standard.removeObject(forKey: favourite)
+                UserDefaults.standard.removeObject(forKey: orderIDk)
+                UserDefaults.standard.removeObject(forKey: halfShotEnabledKey)
+                UserDefaults.standard.set(false, forKey: resetSettingsKey)
+                UserDefaults.standard.synchronize()
             }
         }
         
@@ -34,17 +34,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let action = UIMutableUserNotificationAction()
         action.identifier = "THANKS"
         action.title = "Thanks!"
-        action.activationMode = UIUserNotificationActivationMode.Foreground
-        action.authenticationRequired = true
+        action.activationMode = UIUserNotificationActivationMode.foreground
+        action.isAuthenticationRequired = true
         
         let category = UIMutableUserNotificationCategory()
         category.identifier = "CATEGORY"
-        category.setActions([action], forContext: UIUserNotificationActionContext.Default)
+        category.setActions([action], for: UIUserNotificationActionContext.default)
         
 //        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound,.Alert], categories: NSSet(object: category) as? Set<UIUserNotificationCategory>))
         
         
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound,.Alert], categories: nil));
+        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound,.alert], categories: nil));
         
         application.registerForRemoteNotifications()
         
@@ -55,19 +55,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func displayStatusChanged(ref:CFNotificationCenterRef){
+    func displayStatusChanged(_ ref:CFNotificationCenter){
         print("ref")
     }
     
     
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
         print("resigned active")
         //dobackground()
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
@@ -75,22 +75,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
         //endBackgroundTask()
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         //endBackgroundTask()
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         //endBackgroundTask()
     }
 
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         print(notification)
     }
 
@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var backgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
     
     func registerBackgroundTask(){
-        backgroundTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+        backgroundTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
             [unowned self] in
             self.endBackgroundTask()
             })
@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func endBackgroundTask() {
         NSLog("Background task ended.")
-        UIApplication.sharedApplication().endBackgroundTask(backgroundTask)
+        UIApplication.shared.endBackgroundTask(backgroundTask)
         backgroundTask = UIBackgroundTaskInvalid
     }
     
@@ -117,35 +117,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("doing background process")
         print(keyAlreadyExist(notificationReceived))
         if(keyAlreadyExist(kUsernameKey) && !keyAlreadyExist(notificationReceived)){
-            if let gotUniqueDrinkID = NSUserDefaults.standardUserDefaults().objectForKey(orderIDk) as? String{
+            if let gotUniqueDrinkID = UserDefaults.standard.object(forKey: orderIDk) as? String{
                 print("backgound process should run")
                 registerBackgroundTask()
                 
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                     
-                    let get = Firebase(url: appURL).childByAppendingPath("orders/"+gotUniqueDrinkID)
-                    get.observeEventType(FEventType.Value, withBlock: { snapshot in
+                    let get = Firebase(url: appURL).child(byAppendingPath: "orders/"+gotUniqueDrinkID)
+                    get?.observe(FEventType.value, with: { snapshot in
                         print("in notification process")
-                        if snapshot.value is NSNull {
+                        if snapshot?.value is NSNull {
                             print("was null - app delegate closure")
                         } else {
-                            if let value = snapshot.value.objectForKey("status") as? String{
-                                let drink = snapshot.value.objectForKey("product") as! String
+                            if let value = (snapshot?.value as AnyObject).object(forKey: "status") as? String{
+                                let drink = (snapshot?.value as AnyObject).object(forKey: "product") as! String
                                 
                                 if(value=="done"){
                                     
                                     let notification = UILocalNotification()
-                                    notification.fireDate = NSDate(timeIntervalSinceNow: 0.0)
-                                    notification.timeZone = NSTimeZone.localTimeZone()
+                                    notification.fireDate = Date(timeIntervalSinceNow: 0.0)
+                                    notification.timeZone = TimeZone.autoupdatingCurrent
                                     notification.soundName = UILocalNotificationDefaultSoundName
                                     
                                     
                                     notification.alertTitle = "Collect from the Kiosk now"
                                     notification.alertBody = "Your \(drink) is ready!"
                                     
-                                    UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                                    UIApplication.shared.scheduleLocalNotification(notification)
                                     
-                                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: notificationReceived)
+                                    UserDefaults.standard.set(true, forKey: notificationReceived)
                                     
                                     //get.removeAllObservers()
                                     
@@ -166,21 +166,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("registered with token: \(deviceToken)")
         
-        let cleaned = deviceToken.description.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>")).stringByReplacingOccurrencesOfString(" ", withString: "")
+        let cleaned = deviceToken.description.trimmingCharacters(in: CharacterSet(charactersIn: "<>")).replacingOccurrences(of: " ", with: "")
         
-        NSUserDefaults.standardUserDefaults().setObject(cleaned, forKey: "devicePushKey")
+        UserDefaults.standard.set(cleaned, forKey: "devicePushKey")
         
         print(cleaned)
     }
     
-    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("yeah, big error", error)
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         print("remote notification received")
         print(userInfo)
     }

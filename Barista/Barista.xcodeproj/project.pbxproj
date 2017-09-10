@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57B3D5061F65D162007E13A1 /* auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B3D5051F65D162007E13A1 /* auth.swift */; };
+		57B3D50A1F65D1DA007E13A1 /* authExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B3D5091F65D1DA007E13A1 /* authExample.swift */; };
 		7F31246C7A0ED0B7812026A5 /* Pods_Barista.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61BAC99AACD0DFB0BDDD7AF /* Pods_Barista.framework */; };
 		CA0A02CD1C46608A006478D4 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0A02CB1C46608A006478D4 /* MyTableViewCell.swift */; };
 		CA0A02CE1C46608A006478D4 /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA0A02CC1C46608A006478D4 /* MyTableViewCell.xib */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		57B3D5051F65D162007E13A1 /* auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = auth.swift; sourceTree = "<group>"; };
+		57B3D5091F65D1DA007E13A1 /* authExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = authExample.swift; sourceTree = "<group>"; };
 		67467325F0570CF7FBAAF8E7 /* Pods-Barista.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Barista.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Barista/Pods-Barista.debug.xcconfig"; sourceTree = "<group>"; };
 		7A3C4733B82A0CD6EEAA3535 /* Pods-Barista.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Barista.release.xcconfig"; path = "Pods/Target Support Files/Pods-Barista/Pods-Barista.release.xcconfig"; sourceTree = "<group>"; };
 		C61BAC99AACD0DFB0BDDD7AF /* Pods_Barista.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Barista.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +95,8 @@
 				CAB7F2861C5BB25A00CEB25C /* Main.storyboard */,
 				CA2DAC6C1C2AC50F00E0F741 /* AppDelegate.swift */,
 				CA2DAC6E1C2AC50F00E0F741 /* ViewController.swift */,
+				57B3D5051F65D162007E13A1 /* auth.swift */,
+				57B3D5091F65D1DA007E13A1 /* authExample.swift */,
 				CAE2DFE91C5B941E0074FDC8 /* AdminStoryboard.storyboard */,
 				CAB7F2881C5BBCA500CEB25C /* detailViewController.swift */,
 				CAE2DFEB1C5BA3A50074FDC8 /* BackendAdminViewController.swift */,
@@ -151,6 +157,7 @@
 					CA2DAC681C2AC50F00E0F741 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = WCX6WW7JPG;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -250,8 +257,10 @@
 				CAB7F28B1C5BC10000CEB25C /* backendAdmin.swift in Sources */,
 				CAE2DFEC1C5BA3A50074FDC8 /* BackendAdminViewController.swift in Sources */,
 				CAB7F2891C5BBCA500CEB25C /* detailViewController.swift in Sources */,
+				57B3D50A1F65D1DA007E13A1 /* authExample.swift in Sources */,
 				CA0A02CD1C46608A006478D4 /* MyTableViewCell.swift in Sources */,
 				CAB7F28D1C5BCD4600CEB25C /* MasterTableViewController.swift in Sources */,
+				57B3D5061F65D162007E13A1 /* auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +379,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Barista/Barista-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -390,6 +400,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Barista/Barista-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

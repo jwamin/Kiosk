@@ -44,36 +44,36 @@ class detailViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         print(thisDrink)
         
         if(!newDrink){
             
             detailTitle.title = thisDrink!["name"] as? String
             nameField.text = thisDrink!["name"] as? String
-            self.shotSwitch.on = thisDrink!["shots"] as! Bool
-            self.milkSwitch.on = thisDrink!["type"] as! Bool
-            self.styleSwitch.on = thisDrink!["style"] as! Bool
+            self.shotSwitch.isOn = thisDrink!["shots"] as! Bool
+            self.milkSwitch.isOn = thisDrink!["type"] as! Bool
+            self.styleSwitch.isOn = thisDrink!["style"] as! Bool
             if let half = thisDrink!["half"] as? Bool{
-                self.halfShotSwitch.on = half
+                self.halfShotSwitch.isOn = half
             } else {
-                self.halfShotSwitch.on = false;
+                self.halfShotSwitch.isOn = false;
             }
             
-            self.syrupSwitch.on = thisDrink!["syrups"] as! Bool
+            self.syrupSwitch.isOn = thisDrink!["syrups"] as! Bool
         } else {
-            drinkDeleteButton.enabled = false;
+            drinkDeleteButton.isEnabled = false;
         }
 
         
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         detailTitle.title = nameField.text
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         detailTitle.title = nameField.text
     }
     
@@ -88,12 +88,12 @@ class detailViewController: UIViewController, UITextFieldDelegate {
         
         var drink = Dictionary<String,AnyObject>()
         
-        drink["name"] = nameField.text
-        drink["shots"] = shotSwitch.on
-        drink["type"] = milkSwitch.on
-        drink["style"] = styleSwitch.on
-        drink["half"] = halfShotSwitch.on
-        drink["syrups"] = syrupSwitch.on
+        drink["name"] = nameField.text as AnyObject
+        drink["shots"] = shotSwitch.isOn as AnyObject
+        drink["type"] = milkSwitch.isOn as AnyObject
+        drink["style"] = styleSwitch.isOn as AnyObject
+        drink["half"] = halfShotSwitch.isOn as AnyObject
+        drink["syrups"] = syrupSwitch.isOn as AnyObject
         delegate?.drinkSubmit(drink,sender: self)
         
     }

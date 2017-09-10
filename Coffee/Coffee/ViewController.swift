@@ -44,9 +44,9 @@ class ViewController: UIViewController, newuserProtocolDelegate {
             initMain()
         } else {
             let stb = UIStoryboard(name: "Main", bundle: nil)
-            let vc = stb.instantiateViewControllerWithIdentifier("nouser") as! AddUser
+            let vc = stb.instantiateViewController(withIdentifier: "nouser") as! AddUser
             vc.delegate = self
-            self.presentViewController(vc, animated: true, completion: nil)
+            self.present(vc, animated: true, completion: nil)
         }
         
         if(debug){
@@ -57,10 +57,10 @@ class ViewController: UIViewController, newuserProtocolDelegate {
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if(keyAlreadyExist(orderIDk)){
             //newDrink.enabled = false;
-            currentOrder = NSUserDefaults.standardUserDefaults().objectForKey(orderIDk) as? String
+            currentOrder = UserDefaults.standard.object(forKey: orderIDk) as? String
         }
     }
     
@@ -72,7 +72,7 @@ class ViewController: UIViewController, newuserProtocolDelegate {
     
     //'Main' method called on view load
     func initMain(){
-        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        UIApplication.shared.cancelAllLocalNotifications()
         becameActive()
         addNotifications()
         subscribeToConnectedState()
@@ -82,8 +82,8 @@ class ViewController: UIViewController, newuserProtocolDelegate {
 
     
     func addNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resigned", name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "becameActive", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.resigned), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.becameActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     //#MARK: - Notification Handlers
@@ -108,7 +108,7 @@ class ViewController: UIViewController, newuserProtocolDelegate {
     //re-attach listeners for all data
     func becameActive(){
         print("entered")
-        statusMessage.hidden = true
+        statusMessage.isHidden = true
         activity.stopAnimating()
         print("initialising bases")
         MainBase = Firebase(url: appURL)
@@ -117,7 +117,7 @@ class ViewController: UIViewController, newuserProtocolDelegate {
         // Get the data on a post that has changed
         if(keyAlreadyExist(orderIDk)){
             //newDrink.enabled = false;
-            currentOrder = NSUserDefaults.standardUserDefaults().objectForKey(orderIDk) as? String
+            currentOrder = UserDefaults.standard.object(forKey: orderIDk) as? String
             subscribeToMyDrink()
         }
         
@@ -128,31 +128,31 @@ class ViewController: UIViewController, newuserProtocolDelegate {
     //Connectivity status method
     
     func subscribeToConnectedState() -> Void{
-        let infoConnected = MainBase.childByAppendingPath(".info/connected")
-        infoConnected.observeEventType(FEventType.Value, withBlock: { snapshot in
+        let infoConnected = MainBase.child(byAppendingPath: ".info/connected")
+        infoConnected?.observe(FEventType.value, with: { snapshot in
             
-            if snapshot.value is NSNull {
+            if snapshot?.value is NSNull {
                 print("error")
             } else {
-                let connected = snapshot.value as? Bool
+                let connected = snapshot?.value as? Bool
                 if connected != nil && connected! {
                     NSLog("connected")
-                    self.newDrinkBig.enabled = true
-                    self.newDrinkBig.setTitle("New Drink", forState: .Normal)
+                    self.newDrinkBig.isEnabled = true
+                    self.newDrinkBig.setTitle("New Drink", for: UIControlState())
                     self.newDrinkBig.layer.opacity = 1.0
-                    self.favButton.enabled = true
-                    self.favButton.hidden = true
+                    self.favButton.isEnabled = true
+                    self.favButton.isHidden = true
                     self.active = true
-                    self.connectionMonitor?.backgroundColor = UIColor.greenColor()
+                    self.connectionMonitor?.backgroundColor = UIColor.green
                 } else {
                     NSLog("Not connected")
-                    self.newDrinkBig.enabled = false
-                    self.newDrinkBig.setTitle("Disabled", forState: .Normal)
+                    self.newDrinkBig.isEnabled = false
+                    self.newDrinkBig.setTitle("Disabled", for: UIControlState())
                     self.newDrinkBig.layer.opacity = 0.5
-                    self.favButton.enabled = false
-                    self.favButton.hidden = true
+                    self.favButton.isEnabled = false
+                    self.favButton.isHidden = true
                     self.active = false
-                    self.connectionMonitor?.backgroundColor = UIColor.redColor()
+                    self.connectionMonitor?.backgroundColor = UIColor.red
                 }
                 
             }
@@ -164,21 +164,21 @@ class ViewController: UIViewController, newuserProtocolDelegate {
     //Status method
     
     func subscribeToStatus()->Void{
-        statusListener = MainBase.childByAppendingPath("config")
-        statusListener.observeEventType(FEventType.Value, withBlock: { snapshot in
+        statusListener = MainBase.child(byAppendingPath: "config")
+        statusListener.observe(FEventType.value, with: { snapshot in
             
-            if snapshot.value is NSNull {
+            if snapshot?.value is NSNull {
                 print("error")
             } else {
-                if let status = snapshot.value.objectForKey("status"){
+                if let status = (snapshot?.value as AnyObject).object(forKey: "status"){
                     let stat = status as! String
                     if (stat=="closed"){
                         let stb = UIStoryboard(name: "Main", bundle: nil)
-                        let vc = stb.instantiateViewControllerWithIdentifier("closed") as! closed
-                        if let text = snapshot.value.objectForKey("message") as? String{
+                        let vc = stb.instantiateViewController(withIdentifier: "closed") as! closed
+                        if let text = (snapshot?.value as AnyObject).object(forKey: "message") as? String{
                             vc.text = text
                         }
-                        self.presentViewController(vc, animated: true, completion: nil)
+                        self.present(vc, animated: true, completion: nil)
                     }
                 } else {
                     print("error")
@@ -194,15 +194,15 @@ class ViewController: UIViewController, newuserProtocolDelegate {
     //Gets the drinks settings from Firebase as sticks in a global object for use in the next ViewController
     
     func getConfig() {
-        configListener = MainBase.childByAppendingPath("config")
-        configListener.observeSingleEventOfType(FEventType.Value, withBlock: { snapshot in
+        configListener = MainBase.child(byAppendingPath: "config")
+        configListener.observeSingleEvent(of: FEventType.value, with: { snapshot in
             
-            if snapshot.value is NSNull {
+            if snapshot?.value is NSNull {
                 print("error")
             } else {
                 
                 //gets drinks and settings
-                if let returnedDrinks = snapshot.value.objectForKey("drinks"){
+                if let returnedDrinks = (snapshot?.value as AnyObject).object(forKey: "drinks"){
                     var drinkList:Array<Dictionary<String,AnyObject>> = []
                     if let returnedDrinkData = returnedDrinks as? Dictionary<String,Dictionary<String,AnyObject>>{
                         for (key,value) in returnedDrinkData {
@@ -218,7 +218,7 @@ class ViewController: UIViewController, newuserProtocolDelegate {
                 }
                 
                 //Gets available syrups object
-                if let returnedSyrups = snapshot.value.objectForKey("syrup"){
+                if let returnedSyrups = (snapshot?.value as AnyObject).object(forKey: "syrup"){
                     let returnedSyrupData = returnedSyrups
                     syrups = returnedSyrupData as! [String]
                 } else {
@@ -226,9 +226,9 @@ class ViewController: UIViewController, newuserProtocolDelegate {
                 }
                 if(!keyAlreadyExist(orderIDk)){
                     //self.newDrink.enabled = true
-                    self.newDrinkBig.hidden = false;
+                    self.newDrinkBig.isHidden = false;
                     if(keyAlreadyExist(favourite)){
-                        self.favButton.hidden = false
+                        self.favButton.isHidden = false
                     }
                 }
                 
@@ -240,40 +240,40 @@ class ViewController: UIViewController, newuserProtocolDelegate {
     //#MARK: - IBActions
     
     @IBAction func orderFav(){
-        let fav = NSUserDefaults.standardUserDefaults().objectForKey(favourite) as? NSDictionary
+        let fav = UserDefaults.standard.object(forKey: favourite) as? NSDictionary
         postOrder(fav!)
     }
     
     //#MARK: - Submit Drink to Firebase
     
-    func postOrder(data:NSDictionary){
+    func postOrder(_ data:NSDictionary){
         
         var postData:[String:AnyObject] = data as! [String:AnyObject]
-        postData["name"] = NSUserDefaults.standardUserDefaults().valueForKey(kUsernameKey)
-        postData["time"] = FirebaseServerValue.timestamp()
+        postData["name"] = UserDefaults.standard.value(forKey: kUsernameKey) as AnyObject
+        postData["time"] = FirebaseServerValue.timestamp() as AnyObject
         
         if(keyAlreadyExist("devicePushKey")){
             postData["devicePushKey"] = getExistingValue("devicePushKey");
         } else {
-            postData["devicePushKey"] = "nil";
+            postData["devicePushKey"] = "nil" as AnyObject;
         }
         
         MainBase.authUser(authEmail, password: authPasswd) {
             error, authData in
             if error != nil {
-                let alery = UIAlertController(title: "Error", message: "There was a problem with your order", preferredStyle: UIAlertControllerStyle.Alert)
-                let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                let alery = UIAlertController(title: "Error", message: "There was a problem with your order", preferredStyle: UIAlertControllerStyle.alert)
+                let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
                 alery.addAction(action)
-                self.presentViewController(alery, animated: true, completion: nil)
+                self.present(alery, animated: true, completion: nil)
             } else {
-                let postRef = self.MainBase.childByAppendingPath("orders")
-                let post1Ref = postRef.childByAutoId()
-                post1Ref.setValue(postData)
-                self.currentOrder = post1Ref.key
+                let postRef = self.MainBase.child(byAppendingPath: "orders")
+                let post1Ref = postRef?.childByAutoId()
+                post1Ref?.setValue(postData)
+                self.currentOrder = post1Ref?.key
                 //self.newDrink.enabled = false;
-                self.newDrinkBig.hidden = true;
-                self.favButton.hidden = true;
-                NSUserDefaults.standardUserDefaults().setObject(self.currentOrder, forKey: orderIDk)
+                self.newDrinkBig.isHidden = true;
+                self.favButton.isHidden = true;
+                UserDefaults.standard.set(self.currentOrder, forKey: orderIDk)
                 self.subscribeToMyDrink()
             }
         }
@@ -287,11 +287,11 @@ class ViewController: UIViewController, newuserProtocolDelegate {
     func subscribeToMyDrink() -> Void{
         if(checkCalled==false){
             
-        drinksListener = MainBase.childByAppendingPath("orders/"+currentOrder!)
-        drinksListener.observeEventType(FEventType.Value, withBlock: { snapshot in
+        drinksListener = MainBase.child(byAppendingPath: "orders/"+currentOrder!)
+        drinksListener.observe(FEventType.value, with: { snapshot in
             print(self.active)
             if(self.active){
-            if snapshot.value is NSNull {
+            if snapshot?.value is NSNull {
                 print("was null")
                 self.clearBases()
                 if(!self.receivedDone){
@@ -300,7 +300,7 @@ class ViewController: UIViewController, newuserProtocolDelegate {
                 
             } else {
                 
-                self.updateViews(snapshot)
+                self.updateViews(snapshot!)
             }
             }
         })
@@ -310,25 +310,25 @@ class ViewController: UIViewController, newuserProtocolDelegate {
     
     //#MARK: - Update UI Methods
     
-    func updateViews(snapshot:FDataSnapshot) -> Void{
+    func updateViews(_ snapshot:FDataSnapshot) -> Void{
 
         if snapshot.value is NSNull {
             self.activity.stopAnimating()
             self.statusMessage.text = "Your drink is ready!"
             self.receivedDone = true
-            self.thanksBig.hidden = false;
+            self.thanksBig.isHidden = false;
         } else {
         
-        if let value = snapshot.value.objectForKey("status") as? String{
-        let drink = snapshot.value.objectForKey("product") as! String
+        if let value = (snapshot.value as AnyObject).object(forKey: "status") as? String{
+        let drink = (snapshot.value as AnyObject).object(forKey: "product") as! String
         NSLog(value)
         //self.newDrink.enabled = false
-        self.newDrinkBig.hidden = true;
-            self.thanksBig.hidden = true;
+        self.newDrinkBig.isHidden = true;
+            self.thanksBig.isHidden = true;
             if(keyAlreadyExist(favourite)){
-                self.favButton.hidden = true
+                self.favButton.isHidden = true
             }
-        self.statusMessage.hidden = false;
+        self.statusMessage.isHidden = false;
         if(value=="pending"){
             self.activity.stopAnimating()
             self.statusMessage.text = "Your order has been received"
@@ -343,7 +343,7 @@ class ViewController: UIViewController, newuserProtocolDelegate {
             self.activity.stopAnimating()
             self.statusMessage.text = "Your \(drink) is ready!"
             self.receivedDone = true
-            self.thanksBig.hidden = false;
+            self.thanksBig.isHidden = false;
       
         }
             }
@@ -360,23 +360,23 @@ class ViewController: UIViewController, newuserProtocolDelegate {
     
     
     @IBAction func clearInterface(){
-        self.statusMessage.hidden = true;
+        self.statusMessage.isHidden = true;
         self.activity.stopAnimating()
-        self.newDrinkBig.hidden = false;
+        self.newDrinkBig.isHidden = false;
         
         if(keyAlreadyExist(favourite)){
-            self.favButton.hidden = false
+            self.favButton.isHidden = false
         }
         
         self.receivedDone = false
-        self.thanksBig.hidden = true;
+        self.thanksBig.isHidden = true;
         
     }
     
     func resetDone(){
         drinksListener.removeAllObservers()
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(orderIDk)
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(notificationReceived)
+        UserDefaults.standard.removeObject(forKey: orderIDk)
+        UserDefaults.standard.removeObject(forKey: notificationReceived)
     }
     
     func clearBases(){
@@ -386,11 +386,11 @@ class ViewController: UIViewController, newuserProtocolDelegate {
         statusListener.removeAllObservers()
         drinksListener.removeAllObservers()
         configListener.removeAllObservers()
-        let removeer = MainBase.childByAppendingPath("orders/"+currentOrder!) as Firebase
+        let removeer = MainBase.child(byAppendingPath: "orders/"+currentOrder!) as Firebase
         removeer.removeValue()
         removeer.removeAllObservers()
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(orderIDk)
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(notificationReceived)
+        UserDefaults.standard.removeObject(forKey: orderIDk)
+        UserDefaults.standard.removeObject(forKey: notificationReceived)
     }
     
 

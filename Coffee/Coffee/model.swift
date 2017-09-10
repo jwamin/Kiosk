@@ -8,16 +8,6 @@
 
 import Foundation
 
-//MARK: - Preprocessor variables
-
-#if DEBUG
-let appURL = "" //FIREBASE DEBUG URL
-let debug = true;
-#else
-let debug = false;
-let appURL = "" //FIREBASE LIVE URL
-#endif
-
 //MARK: - App Global 'let' constants
 
 let kUsernameKey = "uname"
@@ -32,9 +22,9 @@ let favourite = "favourite"
 
 let orderIDk = "orderID"
 
-var drinks = [];
+var drinks:Array<Dictionary<String,AnyObject>> = [];
 
-var syrups = [];
+var syrups:[String] = [];
 
 let styleArr = [
 "Regular","Skinny"

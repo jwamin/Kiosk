@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57B3D5041F6425A0007E13A1 /* auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B3D5031F6425A0007E13A1 /* auth.swift */; };
+		57B3D5081F65D1AB007E13A1 /* authExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B3D5071F65D1AB007E13A1 /* authExample.swift */; };
 		75A80B5F45AA4A035E347921 /* Pods_Coffee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBCD3F19354B23B883C10216 /* Pods_Coffee.framework */; };
 		CA2DAC991C2B06D100E0F741 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2DAC981C2B06D100E0F741 /* AppDelegate.swift */; };
 		CA2DAC9B1C2B06D100E0F741 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2DAC9A1C2B06D100E0F741 /* ViewController.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		57B3D5031F6425A0007E13A1 /* auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = auth.swift; sourceTree = "<group>"; };
+		57B3D5071F65D1AB007E13A1 /* authExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = authExample.swift; sourceTree = "<group>"; };
 		C9179762DDA215653BDC4444 /* Pods-Coffee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coffee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Coffee/Pods-Coffee.debug.xcconfig"; sourceTree = "<group>"; };
 		CA2DAC951C2B06D100E0F741 /* Kiosk debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kiosk debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA2DAC981C2B06D100E0F741 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				CA2DACAC1C2B079C00E0F741 /* model.swift */,
+				57B3D5031F6425A0007E13A1 /* auth.swift */,
+				57B3D5071F65D1AB007E13A1 /* authExample.swift */,
 				CA2DACAD1C2B079C00E0F741 /* helpers.swift */,
 				CA2DACAE1C2B079C00E0F741 /* addUser.swift */,
 				CA2DACAF1C2B079C00E0F741 /* drinkPicker.swift */,
@@ -144,6 +150,7 @@
 					CA2DAC941C2B06D100E0F741 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = WCX6WW7JPG;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -245,8 +252,10 @@
 				CA2DACB41C2B079C00E0F741 /* drinkPicker.swift in Sources */,
 				CA2DACB11C2B079C00E0F741 /* model.swift in Sources */,
 				CA7DD0DB1C2BF4EA00D211C6 /* closed.swift in Sources */,
+				57B3D5081F65D1AB007E13A1 /* authExample.swift in Sources */,
 				CA2DAC991C2B06D100E0F741 /* AppDelegate.swift in Sources */,
 				CA2DACB21C2B079C00E0F741 /* helpers.swift in Sources */,
+				57B3D5041F6425A0007E13A1 /* auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +379,7 @@
 				PROVISIONING_PROFILE = "1ada29e6-df7b-4245-8252-450e0a1974a2";
 				SWIFT_OBJC_BRIDGING_HEADER = "Coffee/Coffee-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -389,6 +399,7 @@
 				PRODUCT_NAME = Kiosk;
 				PROVISIONING_PROFILE = "1ada29e6-df7b-4245-8252-450e0a1974a2";
 				SWIFT_OBJC_BRIDGING_HEADER = "Coffee/Coffee-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

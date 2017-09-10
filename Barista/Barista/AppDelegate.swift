@@ -16,15 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound,.Alert], categories: nil))
+        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound,.alert], categories: nil))
         
         return true
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
         
@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
@@ -43,24 +43,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         endBackgroundTask()
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         //
     }
     
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         print(notification)
     }
     
@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var backgroundTask:UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
     
     func registerBackgroundTask(){
-        backgroundTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+        backgroundTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
             [unowned self] in
             self.endBackgroundTask()
             })
@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func endBackgroundTask() {
         NSLog("Background task ended.")
         
-        UIApplication.sharedApplication().endBackgroundTask(backgroundTask)
+        UIApplication.shared.endBackgroundTask(backgroundTask)
         backgroundTask = UIBackgroundTaskInvalid
     }
 
@@ -89,36 +89,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 registerBackgroundTask()
                 
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                     
                     // Do the work associated with the task, preferably in chunks.
                     
-                    let get = Firebase(url: appURL).childByAppendingPath("orders")
-                    get.observeEventType(FEventType.ChildAdded, withBlock: { snapshot in
+                    let get = Firebase(url: appURL).child(byAppendingPath: "orders")
+                    get?.observe(FEventType.childAdded, with: { snapshot in
                         
-                        if snapshot.value is NSNull {
+                        if snapshot?.value is NSNull {
                             print("was null")
                         } else {
-                            let key = snapshot.key as String
+                            let key = snapshot?.key as! String
                             if(self.notInList(key)){
                                 
                                 notifiedList.append(key)
                             
-                            if let value = snapshot.value.objectForKey("status") as? String{
-                                let drink = snapshot.value.objectForKey("product") as! String
-                                let person = snapshot.value.objectForKey("name") as! String
+                            if let value = (snapshot?.value as AnyObject).object(forKey: "status") as? String{
+                                let drink = (snapshot?.value as AnyObject).object(forKey: "product") as! String
+                                let person = (snapshot?.value as AnyObject).object(forKey: "name") as! String
                                 if(value=="pending"){
                                     
                                     let notification = UILocalNotification()
-                                    notification.fireDate = NSDate(timeIntervalSinceNow: 0.0)
-                                    notification.timeZone = NSTimeZone.localTimeZone()
+                                    notification.fireDate = Date(timeIntervalSinceNow: 0.0)
+                                    notification.timeZone = TimeZone.autoupdatingCurrent
                                     notification.soundName = UILocalNotificationDefaultSoundName
                                     
                                     
                                     notification.alertTitle = "Drink ordered"
                                     notification.alertBody = "\(drink) for \(person)"
                                     
-                                    UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                                    UIApplication.shared.scheduleLocalNotification(notification)
                                 
                                     
                                     
@@ -136,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
     
-    func notInList(keyToTest:String)->Bool{
+    func notInList(_ keyToTest:String)->Bool{
         
         for key in notifiedList{
             if (key == keyToTest){

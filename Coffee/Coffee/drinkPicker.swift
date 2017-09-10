@@ -40,17 +40,17 @@ class drinkPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
 
         }        
         
-        let favsButton = UIBarButtonItem(image: img, landscapeImagePhone: img, style: UIBarButtonItemStyle.Plain, target: self, action: "addEditFavourite:"); //(barButtonSystemItem: style, target: self, action: "addEditFavourite:")
+        let favsButton = UIBarButtonItem(image: img, landscapeImagePhone: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(drinkPicker.addEditFavourite(_:))); //(barButtonSystemItem: style, target: self, action: "addEditFavourite:")
         self.navigationItem.rightBarButtonItem = favsButton
         
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
 
-            let setting = NSUserDefaults.standardUserDefaults().boolForKey(halfShotEnabledKey)
+            let setting = UserDefaults.standard.bool(forKey: halfShotEnabledKey)
             if (setting == false){
-                shots.removeSegmentAtIndex(0, animated: false)
+                shots.removeSegment(at: 0, animated: false)
                 
                 shots.selectedSegmentIndex = UISegmentedControlNoSegment;
                 shots.selectedSegmentIndex = 0;
@@ -65,37 +65,37 @@ class drinkPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     
     // Create and return drink dictionary from selected options
     
-    func createDrinkDictionary(isFavourite:Bool) -> NSDictionary{
+    func createDrinkDictionary(_ isFavourite:Bool) -> NSDictionary{
         var dict:[String:AnyObject] = [:];
         
-        dict["product"] = selectedDrink["name"] as? String
+        dict["product"] = selectedDrink["name"] as? String as AnyObject
         
         
-        let setting = NSUserDefaults.standardUserDefaults().boolForKey(halfShotEnabledKey)
+        let setting = UserDefaults.standard.bool(forKey: halfShotEnabledKey)
         if (setting == false){
-            dict["shots"] = String(shots.selectedSegmentIndex + 1)
+            dict["shots"] = String(shots.selectedSegmentIndex + 1) as AnyObject
         } else {
-            dict["shots"] = String(shots.selectedSegmentIndex)
+            dict["shots"] = String(shots.selectedSegmentIndex) as AnyObject
         }
         
         
         
-        dict["style"] = styleArr[style.selectedSegmentIndex]
-        dict["syrup"] = syrups[selectedSyrup] as? String
-        dict["status"] = "pending"
-        dict[favourite] = isFavourite
+        dict["style"] = styleArr[style.selectedSegmentIndex] as AnyObject
+        dict["syrup"] = syrups[selectedSyrup] as? String as AnyObject
+        dict["status"] = "pending" as AnyObject
+        dict[favourite] = isFavourite as AnyObject
         
-        return dict
+        return dict as NSDictionary
     }
     
     //Return selected drink to postOrder method on main view controller (delegate methods)
-    @IBAction func submit(sender: AnyObject) {
+    @IBAction func submit(_ sender: AnyObject) {
         
         let dict = createDrinkDictionary(false)
         
         let rvc = self.navigationController?.viewControllers[0] as? ViewController
         rvc?.postOrder(dict)
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
         
     }
     
@@ -103,41 +103,41 @@ class drinkPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     
     func updateOptions() -> Void{
         if(selectedDrink["shots"] as? Bool == true){
-            shots.enabled = true
+            shots.isEnabled = true
             
-            let setting = NSUserDefaults.standardUserDefaults().boolForKey(halfShotEnabledKey)
+            let setting = UserDefaults.standard.bool(forKey: halfShotEnabledKey)
             if (setting == true){
                 if(selectedDrink["half"] as? Bool == false){
-                    shots.setEnabled(false, forSegmentAtIndex: 0)
+                    shots.setEnabled(false, forSegmentAt: 0)
                 } else {
-                    shots.setEnabled(true, forSegmentAtIndex: 0)
+                    shots.setEnabled(true, forSegmentAt: 0)
                 }
             }
             
         } else {
-            shots.enabled = false;
-            shots.setEnabled(true, forSegmentAtIndex: 0)
+            shots.isEnabled = false;
+            shots.setEnabled(true, forSegmentAt: 0)
         }
         
         if(selectedDrink["style"] as? Bool == true){
-            style.enabled = true
+            style.isEnabled = true
         } else {
-            style.enabled = false;
+            style.isEnabled = false;
         }
         
         if(selectedDrink["type"] as? Bool == true){
-            milk.enabled = true
+            milk.isEnabled = true
         } else {
-            milk.enabled = false;
+            milk.isEnabled = false;
         }
         
         if(selectedDrink["syrups"] as? Bool == true){
-            syrupButton.enabled = true
-            syrupButton.backgroundColor = UIColor.blackColor()
+            syrupButton.isEnabled = true
+            syrupButton.backgroundColor = UIColor.black
             
         } else {
-            syrupButton.enabled = false;
-            syrupButton.backgroundColor = UIColor.grayColor()
+            syrupButton.isEnabled = false;
+            syrupButton.backgroundColor = UIColor.gray
         }
         
         
@@ -151,24 +151,24 @@ class drinkPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     
     @IBAction func pickSyrup(){
         blurview.layer.opacity = 0
-        blurview.hidden = false;
+        blurview.isHidden = false;
         
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             self.blurview.layer.opacity = 1;
         })
         
     }
     
-    @IBAction func pickedSyrup(sender: UIButton) {
-        selectedSyrup = syrupPicker.selectedRowInComponent(0)
-        syrupButton.setTitle(syrups[selectedSyrup] as? String, forState: .Normal)
+    @IBAction func pickedSyrup(_ sender: UIButton) {
+        selectedSyrup = syrupPicker.selectedRow(inComponent: 0)
+        syrupButton.setTitle(syrups[selectedSyrup] as? String, for: UIControlState())
         
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             self.blurview.layer.opacity = 0
             
             }, completion: {
                 myBool in
-                self.blurview.hidden = false;
+                self.blurview.isHidden = false;
         })
         
     }
@@ -178,7 +178,7 @@ class drinkPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     
     */
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if(pickerView.tag == 0){
             return drinks[row]["name"] as? String
         }
@@ -188,7 +188,7 @@ class drinkPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         return "option \(row)"
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if(pickerView.tag == 0){
             return drinks.count
         }
@@ -198,12 +198,12 @@ class drinkPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         return 0
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     //call updateOptions() on row selected
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if(pickerView.tag == 0){
             selectedDrink = drinks[row] as! Dictionary<String, AnyObject>
             updateOptions()
@@ -214,14 +214,14 @@ class drinkPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     //MARK: - Favourites functionality methods
     
     //Create favourite from selected options
-    func addEditFavourite(sender:AnyObject?){
+    func addEditFavourite(_ sender:AnyObject?){
         
         if let sentSender = sender{
             print(sentSender)
         }
         
         let drink = selectedDrink["name"] as! String
-        let alertVC = UIAlertController(title: "My Favourite", message: "", preferredStyle: .Alert)
+        let alertVC = UIAlertController(title: "My Favourite", message: "", preferredStyle: .alert)
         
         if(keyAlreadyExist(favourite)){
             alertVC.message = "You have already created a favourite. Would you like to change it with this \(drink)?"
@@ -229,17 +229,17 @@ class drinkPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
             alertVC.message="Set this \(drink) as your new favourite?"
         }
         
-        let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: commitFavourite)
-        let noAction = UIAlertAction(title: "Nope", style: UIAlertActionStyle.Cancel, handler: nil)
+        let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: commitFavourite)
+        let noAction = UIAlertAction(title: "Nope", style: UIAlertActionStyle.cancel, handler: nil)
         alertVC.addAction(yesAction)
         alertVC.addAction(noAction)
-        self.presentViewController(alertVC, animated: true, completion: nil)
+        self.present(alertVC, animated: true, completion: nil)
         
     }
     
     
     //Save favourite to NSUserDefaults
-    func commitFavourite(action:UIAlertAction?) -> Void{
+    func commitFavourite(_ action:UIAlertAction?) -> Void{
         if let recievedAction = action{
             print(recievedAction)
         } else {
@@ -248,15 +248,15 @@ class drinkPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         
         let favouriteDict = createDrinkDictionary(true)
         
-        NSUserDefaults.standardUserDefaults().setObject(favouriteDict, forKey: favourite)
+        UserDefaults.standard.set(favouriteDict, forKey: favourite)
         
         let img:UIImage = UIImage(named: "fav")!;
-        let favsButton = UIBarButtonItem(image: img, landscapeImagePhone: img, style: UIBarButtonItemStyle.Plain, target: self, action: "addEditFavourite:");
+        let favsButton = UIBarButtonItem(image: img, landscapeImagePhone: img, style: UIBarButtonItemStyle.plain, target: self, action: #selector(drinkPicker.addEditFavourite(_:)));
         self.navigationItem.rightBarButtonItem = favsButton
         
         let rootVC = self.navigationController?.viewControllers.first as! ViewController
         
-        rootVC.favButton.hidden = false
+        rootVC.favButton.isHidden = false
         
     }
     
