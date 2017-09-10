@@ -1,0 +1,25 @@
+{
+  "config" : {
+    "drinks" : {
+      "-KDwd54KUyIWiAs4XMI0" : {
+        "half" : true,
+        "name" : "Americano",
+        "shots" : true,
+        "style" : true,
+        "syrups" : true,
+        "type" : true
+      },
+      "-KthPh4FTLFdmm9dtZNO" : {
+        "half" : true,
+        "name" : "massive Freaking Coffee",
+        "shots" : true,
+        "style" : true,
+        "syrups" : true,
+        "type" : true
+      }
+    },
+    "message" : "Nah Blud",
+    "status" : "open",
+    "syrup" : [ "None", "Vanilla", "Caramel", "Hazelnut", "Gingerbread" ]
+  }
+}
